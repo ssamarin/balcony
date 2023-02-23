@@ -1,4 +1,15 @@
 const modals = () => {
+
+    function closeModal(modal) {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+    }
+
+    function openModal(modal) {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+    }
+
     function bindModal(triggerSelector, modalSelector, closeSelector) {
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
@@ -10,20 +21,23 @@ const modals = () => {
                     e.preventDefault();
                 }
     
-                modal.style.display = "block";
-                document.body.style.overflow = "hidden";
+                openModal(modal);
             });
         });
 
         close.addEventListener('click', () => {
-            modal.style.display = "none";
-            document.body.style.overflow = "";
+            closeModal(modal);
         });
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.style.display = "none";
-                document.body.style.overflow = "";
+                closeModal(modal);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === "Escape" && modal.classList.contains('show')) { 
+                closeModal(modal);
             }
         });
     }
@@ -37,7 +51,7 @@ const modals = () => {
         
     bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
     bindModal('.phone_link', '.popup', '.popup .popup_close');
-    showModalByTime('.popup', 60000);
+    // showModalByTime('.popup', 60000);
 };
 
 export default modals;

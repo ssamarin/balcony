@@ -14980,6 +14980,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var modals = function modals() {
+  function closeModal(modal) {
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+  }
+
+  function openModal(modal) {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+  }
+
   function bindModal(triggerSelector, modalSelector, closeSelector) {
     var trigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector),
@@ -14990,18 +15000,20 @@ var modals = function modals() {
           e.preventDefault();
         }
 
-        modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        openModal(modal);
       });
     });
     close.addEventListener('click', function () {
-      modal.style.display = "none";
-      document.body.style.overflow = "";
+      closeModal(modal);
     });
     modal.addEventListener('click', function (e) {
       if (e.target === modal) {
-        modal.style.display = "none";
-        document.body.style.overflow = "";
+        closeModal(modal);
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.code === "Escape" && modal.classList.contains('show')) {
+        closeModal(modal);
       }
     });
   }
@@ -15014,8 +15026,7 @@ var modals = function modals() {
   }
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
-  bindModal('.phone_link', '.popup', '.popup .popup_close');
-  showModalByTime('.popup', 60000);
+  bindModal('.phone_link', '.popup', '.popup .popup_close'); // showModalByTime('.popup', 60000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modals);
