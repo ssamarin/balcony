@@ -368,6 +368,7 @@ textarea:focus {
 
 .glazing_block {
   display: inline-block;
+  cursor: pointer;
 }
 
 .glazing_block img {
@@ -499,6 +500,7 @@ textarea:focus {
 
 .decoration_item {
   text-align: center;
+  cursor: pointer;
 }
 
 .decoration_item a {
